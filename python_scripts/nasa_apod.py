@@ -19,9 +19,9 @@ def nasa():
     # print(fecha, '-',titulo)
     url_imagen = response.json()['url']
     # print(url_imagen) 
-    urllib.request.urlretrieve(url_imagen, "pic.png")
-    img = Image.open("pic.png") 
-    img.show()
+    # urllib.request.urlretrieve(url_imagen, "pic.png")
+    # img = Image.open("pic.png") 
+    # img.show()
     texto = response.json()['explanation']
     # print(texto)
     intro = "f{fecha} - {titulo}"
