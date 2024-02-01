@@ -21,7 +21,7 @@ logging.basicConfig(
 
 # This function responds to start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Que hostia qués you!")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="hola jefe")
 
 async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="funca")
