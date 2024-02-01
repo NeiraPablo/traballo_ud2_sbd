@@ -27,6 +27,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
+async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=nasa()) 
+
 # function
 # async def afirmador(update, context):
 #     file = await context.bot.get_file(update.message.document)
@@ -44,6 +47,9 @@ if __name__ == '__main__':
     # Handler to manage the start command
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
+
+    nasa_handler = CommandHandler('nasa', nasa)
+    application.add_handler(nasa_handler)
 
     # Handler to manage text messages
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
