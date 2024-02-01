@@ -25,4 +25,4 @@ def nasa():
     texto = response.json()['explanation']
     # print(texto)
     intro = "f{fecha} - {titulo}"
-    return intro, img.show(), texto
+    return intro, url_imagen, texto
