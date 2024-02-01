@@ -23,6 +23,9 @@ logging.basicConfig(
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Que hostia qués you!")
 
+async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="funca")
+
 # This function responds to echo handler
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
@@ -47,6 +50,9 @@ if __name__ == '__main__':
     # Handler to manage the start command
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
+
+    test_handler = CommandHandler('test', test)
+    application.add_handler(test_handler)
 
     nasa_handler = CommandHandler('nasa', nasa)
     application.add_handler(nasa_handler)
