@@ -6,8 +6,6 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 import os
 TOKEN = os.getenv('TOKEN')
 
-# TOKEN = '6982824376:AAGIqh5AU7b-wsVm8dWu2qbyMjoz7eEizWE'
-
 if TOKEN==None:
     print('Lembra indicar a variable de entorno TOKEN')
     print('p.ex: dokcer run --rm -e TOKEN=o_teu_token nomebot')
@@ -33,6 +31,9 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=nasa()) 
 
+async def joke(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=joke()) 
+
 # function
 # async def afirmador(update, context):
 #     file = await context.bot.get_file(update.message.document)
@@ -56,6 +57,9 @@ if __name__ == '__main__':
 
     nasa_handler = CommandHandler('nasa', nasa)
     application.add_handler(nasa_handler)
+
+    joke_handler = CommandHandler('chiste', joke)
+    application.add_handler(joke_handler)
 
     # Handler to manage text messages
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
