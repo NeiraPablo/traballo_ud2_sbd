@@ -1,6 +1,10 @@
 import logging
 from telegram import Update
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
+from python_scripts.jokes import *
+from python_scripts.nasa_apod import *
+from python_scripts.meteo_pred import *
+
 
 # Authentication to manage the bot
 import os
@@ -24,14 +28,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="funca")
 
+# async def table7(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#     await context.bot.send_message(chat_id=update.effective_chat.id, text=taboa_do_7()) 
+
 # This function responds to echo handler
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
-async def nasa(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def tempo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_pred()) 
+
+async def nasa_pic(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=nasa()) 
 
-async def joke(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def chiste(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=joke()) 
 
 # function
@@ -55,10 +65,16 @@ if __name__ == '__main__':
     test_handler = CommandHandler('test', test)
     application.add_handler(test_handler)
 
-    nasa_handler = CommandHandler('nasa', nasa)
+    # table7_handler = CommandHandler('table7', table7)
+    # application.add_handler(table7_handler)
+
+    tempo_handler = CommandHandler('tempo', tempo)
+    application.add_handler(tempo_handler)
+
+    nasa_handler = CommandHandler('nasa', nasa_pic)
     application.add_handler(nasa_handler)
 
-    joke_handler = CommandHandler('chiste', joke)
+    joke_handler = CommandHandler('chiste', chiste)
     application.add_handler(joke_handler)
 
     # Handler to manage text messages
