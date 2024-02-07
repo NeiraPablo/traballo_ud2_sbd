@@ -14,8 +14,8 @@ def meteo_pred():
     response = requests.get(url, params = {'apiKey':API_KEY, 'lat':lat, 'lon':lon})
     response.json()
     # print(response.json()['list'][0]['main'])
-    temp_max=(f"Temperatura máxima: {response.json()['list'][0]['main']['temp_max']}")
-    temp_min=(f"Temperatura mínima: {response.json()['list'][0]['main']['temp_min']}")
+    temp_max=(f"Temperatura máxima: {round((response.json()['list'][0]['main']['temp_max'])-273, 2)}")
+    temp_min=(f"Temperatura mínima: {round((response.json()['list'][0]['main']['temp_min'])-273, 2)}")
     sky=(f"Estado do ceo: {response.json()['list'][0]['weather'][0]['main']}")
     rain=("Non hai precipitacións")
     if 'rain' in response.json()['list'][0]:
