@@ -4,6 +4,7 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 from python_scripts.jokes import *
 from python_scripts.nasa_apod import *
 from python_scripts.meteo_pred import *
+from python_scripts.pokeapi import *
 
 
 # Authentication to manage the bot
@@ -44,6 +45,9 @@ async def nasa_pic(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def chiste(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=joke()) 
 
+async def poke_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=pokemon()) 
+
 # function
 # async def afirmador(update, context):
 #     file = await context.bot.get_file(update.message.document)
@@ -76,6 +80,9 @@ if __name__ == '__main__':
 
     joke_handler = CommandHandler('chiste', chiste)
     application.add_handler(joke_handler)
+
+    poke_handler = CommandHandler('poke', poke_info)
+    application.add_handler(poke_handler)
 
     # Handler to manage text messages
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)

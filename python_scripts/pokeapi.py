@@ -1,14 +1,29 @@
-import requests
+def pokemon():
+    import requests
+    import random as random
 
-url = 'https://pokeapi.co/api/v2/pokemon/'
-tal = 'pikachu'
+    url = 'https://pokeapi.co/api/v2/pokemon/'
 
-pokemito = url+tal
+    num_pokes = 1025
+    random_poke = random.randrange(0, num_pokes, 1)
+    random_poke=str(random_poke)
 
-response = requests.get(pokemito)
-# print(response.json())
+    pokemito = url+random_poke
 
-nombre = response.json()['name']
-num = response.json()['id']
-print(nombre)
-print(num)
+    response = requests.get(pokemito)
+    # print(response.json())
+
+    nombre = response.json()['name']
+    num = response.json()['id']
+    # print(nombre)
+    # print(num)
+    if len(response.json()['types']) == 1:
+        tipo = response.json()['types'][0]['type']['name']
+    elif len(response.json()['types']) == 2:
+        tipo = response.json()['types'][0]['type']['name'] + ' ' + response.json()['types'][1]['type']['name']
+    # print(tipo)
+    image = response.json()['sprites']['front_default']
+    # print(image)
+    respuesta = (f" {nombre} - {num}\n{tipo}\n{image}")
+
+    return respuesta
