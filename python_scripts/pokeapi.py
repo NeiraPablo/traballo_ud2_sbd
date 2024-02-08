@@ -24,6 +24,8 @@ def pokemon():
     # print(tipo)
     image = response.json()['sprites']['front_default']
     # print(image)
-    respuesta = (f"Nombre: {nombre}\n\nNº Pokedex: {num}\n\nTipo: {tipo}\n\n{image}")
+    # respuesta = (f"Nombre: {nombre}\n\nNº Pokedex: {num}\n\nTipo: {tipo}\n\n{image}")
+    texto = f"Nombre: {nombre}\n\nNº Pokedex: {num}\n\nTipo: {tipo}"
+    imagen = image
 
-    return respuesta
+    return texto, imagen

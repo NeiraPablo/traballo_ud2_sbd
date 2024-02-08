@@ -11,6 +11,7 @@ def nasa():
     intro = (f"{response.json()['date']} - {response.json()['title']}")
     url_imagen = (f"{response.json()['url']}")
     texto = response.json()['explanation']
-    respuesta = (f"{intro} \n{url_imagen} \n{texto}")
+    # respuesta = (f"{intro} \n{url_imagen} \n{texto}")
+    text = f"{intro}\n\n{texto}"
     
-    return respuesta
+    return text, url_imagen

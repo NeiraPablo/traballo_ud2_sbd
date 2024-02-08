@@ -4,8 +4,8 @@ from telegram import Update
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
 
 # from dotenv import load_dotenv
-from pathlib import Path
-import requests 
+# from pathlib import Path
+# import requests 
 
 #poñer esto mellor
 from python_scripts.jokes import *
@@ -32,8 +32,6 @@ logging.basicConfig(
 
 #########################################################################################
 
-#last_command = None
-
 # This function responds to start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="hola jefe")
@@ -42,36 +40,25 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
-#### 
-    ####BORRAR###
-###
-async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="funca")
-#######
-
 async def tempo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_pred()) 
 
 async def nasa_pic(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=nasa()) 
+    texto, imagen = nasa()
+    await context.bot.send_photo(chat_id=update.effective_chat.id, photo=imagen, caption=texto) 
 
 async def chiste(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=joke()) 
 
 async def poke_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=pokemon()) 
+    texto, imagen = pokemon()
+    await context.bot.send_photo(chat_id=update.effective_chat.id, photo=imagen, caption=texto) 
 
-############
-# async def newsletter(update: Update, context: ContextTypes.DEFAULT_TYPE):
-#     await context.bot.send_photo(chat_id=update.effective_chat.id, photo=Path('resources/eldiario.jpg'), caption=mod.getHeadlines(), parse_mode='HTML')
 async def titular_dia(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=titular(), parse_mode='HTML')
 
-# async def cinema(update: Update, context: ContextTypes.DEFAULT_TYPE):
-#     await context.bot.send_photo(chat_id=update.effective_chat.id, photo=Path('resources/cinema.png'), caption=cartelera(), parse_mode='HTML')
 async def pelis_cine(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=cartelera(), parse_mode='HTML')
-############
 
 # function
 # async def afirmador(update, context):
@@ -90,9 +77,6 @@ if __name__ == '__main__':
     # Handler to manage the start command
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
-
-    test_handler = CommandHandler('test', test)
-    application.add_handler(test_handler)
 
     # table7_handler = CommandHandler('table7', table7)
     # application.add_handler(table7_handler)
