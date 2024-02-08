@@ -19,7 +19,7 @@ def meteo_pred():
     sky=(f"Estado do ceo: {response.json()['list'][0]['weather'][0]['main']}")
     rain=("Non hai precipitacións")
     if 'rain' in response.json()['list'][0]:
-        if response.json()['list'][0]['rain']['1h']:
+        if '1h' in response.json()['list'][0]['rain']:
             rain=(f"Volumen de chuvia na última hora: {response.json()['list'][0]['rain']['1h']}mm")
         else:
             rain=(f"Volumen de chuvia nas últimas 3 horas: {response.json()['list'][0]['rain']['3h']}mm")
