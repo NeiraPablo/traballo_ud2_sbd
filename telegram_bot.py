@@ -1,16 +1,24 @@
 import logging
+import os
 from telegram import Update
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
+
+from dotenv import load_dotenv
+from pathlib import Path
+import requests
+
+#poñer esto mellor
 from python_scripts.jokes import *
 from python_scripts.nasa_apod import *
 from python_scripts.meteo_pred import *
 from python_scripts.pokeapi import *
+from python_scripts.cine import *
+from python_scripts.titular import *
 
 
 # Authentication to manage the bot
-import os
+load_dotenv()
 TOKEN = os.getenv('TOKEN')
-
 if TOKEN==None:
     print('Lembra indicar a variable de entorno TOKEN')
     print('p.ex: dokcer run --rm -e TOKEN=o_teu_token nomebot')
@@ -22,19 +30,24 @@ logging.basicConfig(
     level=logging.INFO
 )
 
+#########################################################################################
+
+#last_command = None
+
 # This function responds to start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="hola jefe")
 
-async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="funca")
-
-# async def table7(update: Update, context: ContextTypes.DEFAULT_TYPE):
-#     await context.bot.send_message(chat_id=update.effective_chat.id, text=taboa_do_7()) 
-
 # This function responds to echo handler
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+
+#### 
+    ####BORRAR###
+###
+async def test(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="funca")
+#######
 
 async def tempo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=meteo_pred()) 
@@ -47,6 +60,18 @@ async def chiste(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def poke_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=pokemon()) 
+
+############
+# async def newsletter(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#     await context.bot.send_photo(chat_id=update.effective_chat.id, photo=Path('resources/eldiario.jpg'), caption=mod.getHeadlines(), parse_mode='HTML')
+async def newsletter(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_photo(chat_id=update.effective_chat.id, text=titular())
+
+# async def cinema(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#     await context.bot.send_photo(chat_id=update.effective_chat.id, photo=Path('resources/cinema.png'), caption=cartelera(), parse_mode='HTML')
+async def pelis_cine(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_photo(chat_id=update.effective_chat.id, text=cartelera())
+############
 
 # function
 # async def afirmador(update, context):
@@ -83,6 +108,12 @@ if __name__ == '__main__':
 
     poke_handler = CommandHandler('poke', poke_info)
     application.add_handler(poke_handler)
+
+    titular_handler = CommandHandler('titular', titular)
+    application.add_handler(titular_handler)
+
+    cine_handler = CommandHandler('cartelera', pelis_cine)
+    application.add_handler(cine_handler)
 
     # Handler to manage text messages
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
