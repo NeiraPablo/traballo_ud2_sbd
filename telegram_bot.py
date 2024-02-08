@@ -3,9 +3,9 @@ import os
 from telegram import Update
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from pathlib import Path
-import requests
+import requests 
 
 #poñer esto mellor
 from python_scripts.jokes import *
@@ -17,7 +17,7 @@ from python_scripts.titular import *
 
 
 # Authentication to manage the bot
-load_dotenv()
+# load_dotenv()
 TOKEN = os.getenv('TOKEN')
 if TOKEN==None:
     print('Lembra indicar a variable de entorno TOKEN')
@@ -64,13 +64,13 @@ async def poke_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 ############
 # async def newsletter(update: Update, context: ContextTypes.DEFAULT_TYPE):
 #     await context.bot.send_photo(chat_id=update.effective_chat.id, photo=Path('resources/eldiario.jpg'), caption=mod.getHeadlines(), parse_mode='HTML')
-async def newsletter(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_photo(chat_id=update.effective_chat.id, text=titular())
+async def titular_dia(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=titular(), parse_mode='HTML')
 
 # async def cinema(update: Update, context: ContextTypes.DEFAULT_TYPE):
 #     await context.bot.send_photo(chat_id=update.effective_chat.id, photo=Path('resources/cinema.png'), caption=cartelera(), parse_mode='HTML')
 async def pelis_cine(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_photo(chat_id=update.effective_chat.id, text=cartelera())
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=cartelera(), parse_mode='HTML')
 ############
 
 # function
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     poke_handler = CommandHandler('poke', poke_info)
     application.add_handler(poke_handler)
 
-    titular_handler = CommandHandler('titular', titular)
+    titular_handler = CommandHandler('titular', titular_dia)
     application.add_handler(titular_handler)
 
     cine_handler = CommandHandler('cartelera', pelis_cine)
