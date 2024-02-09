@@ -2,29 +2,26 @@ def pokemon():
     import requests
     import random as random
 
-    url = 'https://pokeapi.co/api/v2/pokemon/'
+    url_pokes = 'https://pokeapi.co/api/v2/pokemon/'
+    url = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
 
-    num_pokes = 1025
-    random_poke = random.randrange(0, num_pokes, 1)
-    random_poke=str(random_poke)
+    response = requests.get(url)
+    poke_limit = len(response.json()['results'])
 
-    pokemito = url+random_poke
+    random_poke = random.randrange(0, poke_limit, 1)
+    random_url= response.json()['results'][random_poke]['url']
 
-    response = requests.get(pokemito)
-    # print(response.json())
+    random_response = requests.get(random_url)
 
-    nombre = response.json()['name']
-    num = response.json()['id']
-    # print(nombre)
-    # print(num)
-    if len(response.json()['types']) == 1:
-        tipo = response.json()['types'][0]['type']['name']
-    elif len(response.json()['types']) == 2:
-        tipo = response.json()['types'][0]['type']['name'] + ' ' + response.json()['types'][1]['type']['name']
-    # print(tipo)
-    image = response.json()['sprites']['front_default']
-    # print(image)
-    # respuesta = (f"Nombre: {nombre}\n\nNº Pokedex: {num}\n\nTipo: {tipo}\n\n{image}")
+    nombre = random_response.json()['name']
+    num = random_response.json()['id']
+    if len(random_response.json()['types']) == 1:
+        tipo = random_response.json()['types'][0]['type']['name']
+    elif len(random_response.json()['types']) == 2:
+        tipo = random_response.json()['types'][0]['type']['name'] + ' ' + random_response.json()['types'][1]['type']['name']
+
+    image = random_response.json()['sprites']['front_default']
+
     texto = f"Nombre: {nombre}\n\nNº Pokedex: {num}\n\nTipo: {tipo}"
     imagen = image
 

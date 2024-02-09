@@ -7,14 +7,12 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 # from pathlib import Path
 # import requests 
 
-#poñer esto mellor
 from python_scripts.jokes import *
 from python_scripts.nasa_apod import *
 from python_scripts.meteo_pred import *
 from python_scripts.pokeapi import *
 from python_scripts.cine import *
 from python_scripts.titular import *
-
 
 # Authentication to manage the bot
 # load_dotenv()
@@ -30,13 +28,12 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-#########################################################################################
+###############################################################################
 
 # This function responds to start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="hola jefe")
 
-# This function responds to echo handler
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
 
@@ -45,7 +42,8 @@ async def tempo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def nasa_pic(update: Update, context: ContextTypes.DEFAULT_TYPE):
     texto, imagen = nasa()
-    await context.bot.send_photo(chat_id=update.effective_chat.id, photo=imagen, caption=texto) 
+    await context.bot.send_photo(chat_id=update.effective_chat.id, photo=imagen)
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=texto) 
 
 async def chiste(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=joke()) 
@@ -70,6 +68,8 @@ async def pelis_cine(update: Update, context: ContextTypes.DEFAULT_TYPE):
 #     answer = open('resposta.txt', "rb")
 #     await context.bot.send_document(chat_id=update.effective_chat.id, document=answer)
 
+###############################################################################
+
 if __name__ == '__main__':
     # Start the application to operate the bot
     application = ApplicationBuilder().token(TOKEN).build()
@@ -77,9 +77,6 @@ if __name__ == '__main__':
     # Handler to manage the start command
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
-
-    # table7_handler = CommandHandler('table7', table7)
-    # application.add_handler(table7_handler)
 
     tempo_handler = CommandHandler('tempo', tempo)
     application.add_handler(tempo_handler)
