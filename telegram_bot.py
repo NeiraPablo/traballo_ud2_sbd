@@ -13,6 +13,7 @@ from python_scripts.meteo_pred import *
 from python_scripts.pokeapi import *
 from python_scripts.cine import *
 from python_scripts.titular import *
+from python_scripts.bbdd import *
 
 # Authentication to manage the bot
 # load_dotenv()
@@ -58,6 +59,9 @@ async def titular_dia(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def pelis_cine(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=cartelera(), parse_mode='HTML')
 
+async def inferno(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=destino('Pablo'))
+
 # function
 # async def afirmador(update, context):
 #     file = await context.bot.get_file(update.message.document)
@@ -95,6 +99,9 @@ if __name__ == '__main__':
 
     cine_handler = CommandHandler('cartelera', pelis_cine)
     application.add_handler(cine_handler)
+
+    inferno_handler = CommandHandler('inferno', inferno)
+    application.add_handler(inferno_handler)
 
     # Handler to manage text messages
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
