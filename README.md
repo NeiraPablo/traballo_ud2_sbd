@@ -1,5 +1,5 @@
 # traballo_ud2_sbd
-_Bot de telegram para a asinatura de sistemas_ 
+### _Bot de telegram para a asinatura de sistemas_ 
 
 ## Instruccións de Instalación
 Tras clonar o repositorio, crear un environment en conda con python 3.9.
