@@ -5,12 +5,12 @@ _Bot de telegram para a asinatura de sistemas_
 Tras clonar o repositorio, crear un environment en conda con python 3.9.
 
 ```
-conda env create -n nome_do_environment python=3.9
+conda create -n nome_do_environment python=3.9
 ```
 
 Activar o environment e situarse no directorio creado ao clonar o repositorio.
 
-Instalar os paquetes necesarios (indicados no archivo requirements.txt).
+Instalar os paquetes necesarios (indicados no ficheiro requirements.txt).
 
 > [!TIP]
 > Podes empregar o seguinte comando.
