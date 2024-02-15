@@ -41,7 +41,7 @@ python3 telegram_bot.py
     - Mostra a imaxe do día da Nasa (APOD) co seu título e descrición.
 - **/chiste**
     - Conta un chiste.
-> [!WARNING]
+> [!CAUTION]
 > Non podemos garantir que sexan bos chistes.
 - **/poke**
     - Mostra a información principal dun pokemos aleatorio.
