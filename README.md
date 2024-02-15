@@ -31,7 +31,7 @@ E a continuación executar o script que pon en marcha o bot.
 python3 telegram_bot.py
 ```
 
-## Comandos e funcións dispoñíbels
+## Comandos e funcións dispoñíbeis
 
 ### Lista dos distintos comandos:
 
