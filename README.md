@@ -25,8 +25,29 @@ Unha vez instalados os paquetes requeridos imos establecer a key necesaria para 
 export TOKEN=o-teu-token
 ```
 
-e a continuación executar o script que pon en marcha o bot.
+E a continuación executar o script que pon en marcha o bot.
 
 ```
 python3 telegram_bot.py
 ```
+
+## Comandos e funcións dispoñíbels
+
+### Lista dos distintos comandos:
+
+- **/tempo**
+    - Mostra a predición meteorolóxica para a localidade de Corme.
+- **/nasa**
+    - Mostra a imaxe do día da Nasa (APOD) co seu título e descrición.
+- **/chiste**
+    - Conta un chiste.
+> [!WARNING]
+> Non podemos garantir que sexan bos chistes.
+- **/poke**
+    - Mostra a información principal dun pokemos aleatorio.
+- **/titulares**
+    - Mostra os titulares do día de ElDiario.es.
+- **/cartelera**
+    - Mostra as películas en cartelera do Marineda City. 
+- **/inferno**
+    - Mostra o estado de admisión no inferno do autor do bot. 
