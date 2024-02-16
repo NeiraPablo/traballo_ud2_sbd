@@ -83,10 +83,9 @@ async def csv_to_json(update, context):
 
         if os.path.isfile(document_path):
             if tipo == 'csv_to_json':
-                await context.bot.send_message(chat_id=update.effective_chat.id, text='Aquí está el archivo JSON convertido:', reply_to_message_id=update.message.message_id)
+                await context.bot.send_message(chat_id=update.effective_chat.id, text='El archivo CSV se ha convertido exitosamente a JSON.')
                 await context.bot.send_document(chat_id=update.effective_chat.id, document=open(document_path, 'rb'))
             elif tipo == 'json_to_csv':
-                await context.bot.send_message(chat_id=update.effective_chat.id, text='Aquí está el archivo CSV convertido:', reply_to_message_id=update.message.message_id)
                 await context.bot.send_document(chat_id=update.effective_chat.id, document=open(document_path, 'rb'))
             else:
                 await context.bot.send_message(chat_id=update.effective_chat.id, text='Ha habido algún error')

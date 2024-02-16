@@ -19,6 +19,6 @@ def csv_file(file_path):
             df = pd.read_json(file_path)
             name = os.path.splitext(os.path.basename(file_path))[0]
             df.to_csv(f'{name}.csv')
-            return 'json_to_csv', f'El archivo JSON se ha convertido exitosamente a CSV: {name}.csv'
+            return 'json_to_csv', f'El archivo JSON se ha convertido exitosamente a CSV.'
         except Exception as e:
             return 'otro_formato', f'Error: {str(e)}'
