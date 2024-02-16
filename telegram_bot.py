@@ -14,6 +14,7 @@ from python_scripts.pokeapi import *
 from python_scripts.cine import *
 from python_scripts.titular import *
 from python_scripts.bbdd import *
+from python_scripts.csv_json import *
 
 # Authentication to manage the bot
 # load_dotenv()
@@ -62,6 +63,39 @@ async def pelis_cine(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def inferno(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=destino('Pablo'))
 
+async def csv_to_json(update, context):
+    try:
+        file = await context.bot.get_file(update.message.document.file_id)
+        filename = update.message.document.file_name
+        downloaded_file_path = os.path.join(os.getcwd(), filename)
+        await file.download_to_drive(custom_path=downloaded_file_path)
+        tipo, response = csv_file(downloaded_file_path)
+
+        if tipo == 'csv_to_json':
+            document_path = f'{os.path.splitext(os.path.basename(filename))[0]}.json'
+        elif tipo == 'json_to_csv':  
+            document_path = f'{os.path.splitext(os.path.basename(filename))[0]}.csv'
+        else:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text='Ha habido algún problema, formato no válido?')
+            return
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
+
+        if os.path.isfile(document_path):
+            if tipo == 'csv_to_json':
+                await context.bot.send_message(chat_id=update.effective_chat.id, text='Aquí está el archivo JSON convertido:', reply_to_message_id=update.message.message_id)
+                await context.bot.send_document(chat_id=update.effective_chat.id, document=open(document_path, 'rb'))
+            elif tipo == 'json_to_csv':
+                await context.bot.send_message(chat_id=update.effective_chat.id, text='Aquí está el archivo CSV convertido:', reply_to_message_id=update.message.message_id)
+                await context.bot.send_document(chat_id=update.effective_chat.id, document=open(document_path, 'rb'))
+            else:
+                await context.bot.send_message(chat_id=update.effective_chat.id, text='Ha habido algún error')
+        else:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text='Ha habido algún error')
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f'Error: {str(e)}')
+
+
 # function
 # async def afirmador(update, context):
 #     file = await context.bot.get_file(update.message.document)
@@ -102,6 +136,8 @@ if __name__ == '__main__':
 
     inferno_handler = CommandHandler('inferno', inferno)
     application.add_handler(inferno_handler)
+
+    application.add_handler(MessageHandler(filters.Document.ALL, csv_to_json))
 
     # Handler to manage text messages
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
