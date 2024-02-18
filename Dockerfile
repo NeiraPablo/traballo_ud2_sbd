@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-COPY telegram_bot.py requirements.txt /
+COPY . /
 
 RUN pip install -r requirements.txt
 
